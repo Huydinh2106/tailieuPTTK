@@ -1,0 +1,273 @@
+% Bien dich khuyen nghi: XeLaTeX tren Overleaf/LaTeX online.
+% Neu truong da co file title_page.tex rieng, hay upload cung thu muc voi file nay.
+\documentclass{article}
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\IfFontExistsTF{Tinos}{\setmainfont{Tinos}}{\setmainfont{Noto Serif}}}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{caption}
+
+\renewcommand{\baselinestretch}{1.15}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\renewcommand{\arraystretch}{1.2}
+\setlist[itemize]{topsep=0.2em,itemsep=0.2em,leftmargin=1.6em}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% Lenh chen hinh co kiem tra file ton tai de tranh loi khi upload thieu anh.
+% Cach dung: \insertdiagram{ten_file}{ti_le_chieu_rong}{chu_thich}
+\newcommand{\insertdiagram}[3]{%
+\begin{figure}[H]
+    \centering
+    \IfFileExists{#1}{%
+        \includegraphics[width=#2\textwidth]{#1}%
+    }{%
+        \fbox{\begin{minipage}[c][5cm][c]{0.86\textwidth}
+        \centering
+        \textbf{Vi tri chen hinh}\\[0.3em]
+        Hãy upload file hình tương ứng vào cùng thư mục với file .tex.
+        \end{minipage}}%
+    }
+    \caption{#3}
+\end{figure}
+}
+
+\begin{document}
+
+% Neu ban co file bia cua truong, giu ten file la title_page.tex.
+% Neu khong co, khoi ben duoi se tu tao bia don gian de file van bien dich duoc.
+\IfFileExists{title_page.tex}{\input{title_page}}{%
+\begin{titlepage}
+    \centering
+    {\Large\bfseries BÁO CÁO TIẾN ĐỘ PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG THÔNG TIN\par}
+    \vspace{1.2cm}
+    {\large\bfseries Ứng dụng kết nối thành viên câu lạc bộ đọc sách để trao đổi sách\par}
+    \vspace{0.8cm}
+    {\large Đề tài: Ứng dụng trao đổi sách\par}
+    \vspace{0.5cm}
+    {\large Nội dung: Context Diagram, DFD mức 0, ERD và chuẩn hóa 3NF\par}
+    \vfill
+    \begin{tabular}{L{0.35\textwidth}L{0.5\textwidth}}
+        \toprule
+        \textbf{Học phần} & Phân tích và thiết kế hệ thống thông tin \\
+        \textbf{Nhóm/Sinh viên thực hiện} & [Điền tên nhóm hoặc thành viên] \\
+        \textbf{Giảng viên hướng dẫn} & [Điền tên giảng viên] \\
+        \textbf{Thời gian} & [Điền thời gian nộp báo cáo] \\
+        \bottomrule
+    \end{tabular}
+\end{titlepage}
+}
+
+\section{Các công việc đã hoàn thành}
+
+\noindent\textbullet\ \textbf{Phân tích yêu cầu bài toán:} Nhóm đã xác định được các tác nhân chính của hệ thống, các chức năng cốt lõi và nghiệp vụ trao đổi sách trong câu lạc bộ. Hệ thống tập trung vào thành viên, người giao sách và quản trị viên; đồng thời quản lý các nghiệp vụ đăng ký tài khoản, quản lý sách, tạo giao dịch, vận chuyển, xử lý khiếu nại và cập nhật điểm.
+
+Đặc biệt, nhóm đã phân tích nghiệp vụ quản lý điểm số của người dùng như sau:
+\begin{itemize}
+    \item Người dùng được cộng \textbf{+20đ} khi đăng ký tài khoản thành công.
+    \item Với giao dịch trao đổi sách vĩnh viễn, người giao sách được cộng \textbf{+10đ}, người nhận sách bị trừ \textbf{-10đ}.
+    \item Với giao dịch mượn sách có hoàn trả, người cho mượn được cộng \textbf{+5đ}, người mượn bị trừ \textbf{-5đ}.
+    \item Người thực hiện giao sách được cộng thêm \textbf{+2đ} sau khi giao dịch được xác nhận giao thành công.
+    \item Việc cộng/trừ điểm chỉ được thực hiện một lần cho mỗi giao dịch hoặc mỗi lần giao sách hợp lệ.
+\end{itemize}
+
+\noindent\textbullet\ \textbf{Đã hoàn thành thiết kế Biểu đồ ngữ cảnh (Context Diagram).} Biểu đồ ngữ cảnh mô tả ranh giới hệ thống và các luồng dữ liệu chính giữa hệ thống với thành viên, người giao sách và quản trị viên.
+
+\insertdiagram{assets/contextdiagram.png}{0.9}{Biểu đồ ngữ cảnh của hệ thống kết nối thành viên trao đổi sách trong câu lạc bộ}
+
+\noindent\textbullet\ \textbf{Đã hoàn thành thiết kế Biểu đồ luồng dữ liệu (DFD Level 0).} DFD mức 0 đã được chỉnh lại theo lược đồ mới, gồm năm tiến trình chính và năm kho dữ liệu.
+
+\insertdiagram{assets/dfd0.png}{0.95}{Biểu đồ luồng dữ liệu mức 0 của hệ thống trao đổi sách}
+
+Các tiến trình trong DFD mức 0 gồm:
+\begin{itemize}
+    \item \textbf{1.0 Quản lý người dùng và điểm:} tiếp nhận đăng ký thành viên, quản lý tài khoản, điểm khởi đầu và điểm hiện tại.
+    \item \textbf{2.0 Quản lý thông tin sách:} lưu trữ, cập nhật và cung cấp thông tin sách cho hoạt động tìm kiếm.
+    \item \textbf{3.0 Quản lý giao dịch:} xử lý yêu cầu trao đổi/mượn sách, xác nhận giao dịch và ghi nhận hồ sơ giao dịch.
+    \item \textbf{4.0 Quản lý vận chuyển:} tiếp nhận đăng ký người giao sách, xử lý nhận đơn và cập nhật trạng thái giao sách.
+    \item \textbf{5.0 Quản trị hệ thống / xử lý khiếu nại:} hỗ trợ quản trị viên kiểm tra dữ liệu, xử lý vi phạm và cập nhật kết quả khiếu nại.
+\end{itemize}
+
+Các kho dữ liệu chính gồm D1 - Hệ thống tài khoản và điểm, D2 - Kho sách, D3 - Hồ sơ giao dịch, D4 - Hồ sơ vận chuyển và D5 - Hồ sơ khiếu nại.
+
+\noindent\textbullet\ \textbf{Đã hoàn thành thiết kế Mô hình thực thể liên kết (ERD).} ERD đã được thống nhất theo các thực thể chính: \textbf{Account}, \textbf{Book}, \textbf{Transaction}, \textbf{Transaction History}, \textbf{Delivery} và \textbf{Complaint}. Các quan hệ được thiết kế để thể hiện rõ chủ sở hữu sách, người tham gia giao dịch, người giao sách, lịch sử trạng thái và khiếu nại phát sinh.
+
+\insertdiagram{assets/ER.png}{0.95}{Mô hình thực thể liên kết của cơ sở dữ liệu hệ thống trao đổi sách}
+
+\noindent\textbullet\ \textbf{Đã hoàn thành chuẩn hóa cơ sở dữ liệu về dạng chuẩn 3NF.} Từ ERD đã vẽ, nhóm chuyển các thực thể thành lược đồ quan hệ, xác định khóa chính, khóa ngoại và kiểm tra phụ thuộc hàm để giảm dư thừa dữ liệu.
+
+\subsection*{Lược đồ quan hệ sau khi chuẩn hóa 3NF}
+
+\subsubsection*{Bảng ACCOUNT}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+AccountID & PK & Mã định danh duy nhất của tài khoản \\
+FullName & & Họ và tên người dùng \\
+PhoneNumber & & Số điện thoại \\
+EmailAddress & & Địa chỉ email \\
+Password & & Mật khẩu tài khoản \\
+Points & & Điểm tích lũy của người dùng \\
+Status & & Trạng thái hoạt động của tài khoản \\
+Role & & Vai trò của tài khoản trong hệ thống \\
+\bottomrule
+\end{longtable}
+}
+
+\subsubsection*{Bảng BOOK}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+BookID & PK & Mã định danh duy nhất của sách \\
+OwnerAccountID & FK & Tham chiếu đến ACCOUNT(AccountID) \\
+Title & & Tên sách \\
+Category & & Thể loại sách \\
+Author & & Tác giả \\
+PublicationYear & & Năm xuất bản \\
+Condition & & Tình trạng sách \\
+Status & & Trạng thái hiện tại của sách \\
+\bottomrule
+\end{longtable}
+}
+
+\subsubsection*{Bảng TRANSACTION}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+TransactionID & PK & Mã định danh duy nhất của giao dịch \\
+BookID & FK & Tham chiếu đến BOOK(BookID) \\
+OwnerAccountID & FK & Tham chiếu đến ACCOUNT(AccountID) \\
+BorrowerAccountID & FK & Tham chiếu đến ACCOUNT(AccountID) \\
+TransactionType & & Loại giao dịch \\
+CreatedAt & & Thời điểm tạo giao dịch \\
+BorrowDate & & Ngày mượn sách \\
+ActualReturnDateAt & & Ngày trả thực tế \\
+ReturnDueAt & & Hạn trả sách \\
+Status & & Trạng thái giao dịch \\
+\bottomrule
+\end{longtable}
+}
+
+\subsubsection*{Bảng TRANSACTION\_HISTORY}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+TransactionHistoryID & PK & Mã định danh của bản ghi lịch sử \\
+TransactionID & FK & Tham chiếu đến TRANSACTION(TransactionID) \\
+StatusUpdatedTo & & Trạng thái giao dịch sau khi cập nhật \\
+UpdatedAt & & Thời điểm cập nhật \\
+Note & & Ghi chú khi cập nhật trạng thái \\
+\bottomrule
+\end{longtable}
+}
+
+\subsubsection*{Bảng DELIVERY}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+DeliveryID & PK & Mã định danh duy nhất của giao hàng \\
+TransactionID & FK & Tham chiếu đến TRANSACTION(TransactionID) \\
+VolunteerAccountID & FK & Tham chiếu đến ACCOUNT(AccountID) \\
+AcceptedAt & & Thời điểm tình nguyện viên nhận giao \\
+DeliveredAt & & Thời điểm giao hoàn tất \\
+PickupLocation & & Địa điểm nhận sách \\
+DropoffLocation & & Địa điểm giao sách \\
+Status & & Trạng thái giao hàng \\
+\bottomrule
+\end{longtable}
+}
+
+\subsubsection*{Bảng COMPLAINT}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+ComplaintID & PK & Mã định danh duy nhất của khiếu nại \\
+TransactionID & FK & Tham chiếu đến TRANSACTION(TransactionID) \\
+ComplainantAccountID & FK & Tài khoản gửi khiếu nại, tham chiếu ACCOUNT(AccountID) \\
+ReportedAccountID & FK & Tài khoản bị khiếu nại, tham chiếu ACCOUNT(AccountID) \\
+HandledByAccountID & FK & Tài khoản xử lý khiếu nại, tham chiếu ACCOUNT(AccountID) \\
+ComplaintDetails & & Nội dung chi tiết khiếu nại \\
+Status & & Trạng thái xử lý khiếu nại \\
+Outcome & & Kết quả xử lý \\
+CreatedAt & & Thời điểm tạo khiếu nại \\
+UpdatedAt & & Thời điểm cập nhật khiếu nại \\
+\bottomrule
+\end{longtable}
+}
+
+\subsection*{Phụ thuộc hàm chính}
+\begin{itemize}
+    \item AccountID $\rightarrow$ FullName, PhoneNumber, EmailAddress, Password, Points, Status, Role.
+    \item BookID $\rightarrow$ OwnerAccountID, Title, Category, Author, PublicationYear, Condition, Status.
+    \item TransactionID $\rightarrow$ BookID, OwnerAccountID, BorrowerAccountID, TransactionType, CreatedAt, BorrowDate, ActualReturnDateAt, ReturnDueAt, Status.
+    \item TransactionHistoryID $\rightarrow$ TransactionID, StatusUpdatedTo, UpdatedAt, Note.
+    \item DeliveryID $\rightarrow$ TransactionID, VolunteerAccountID, AcceptedAt, DeliveredAt, PickupLocation, DropoffLocation, Status.
+    \item ComplaintID $\rightarrow$ TransactionID, ComplainantAccountID, ReportedAccountID, HandledByAccountID, ComplaintDetails, Status, Outcome, CreatedAt, UpdatedAt.
+\end{itemize}
+
+\subsection*{Giải thích đạt chuẩn 3NF}
+\begin{itemize}
+    \item Mỗi bảng đều có khóa chính riêng để định danh duy nhất từng bản ghi.
+    \item Các thuộc tính không khóa trong từng bảng phụ thuộc đầy đủ vào khóa chính của bảng đó.
+    \item Không có thuộc tính không khóa nào phụ thuộc bắc cầu vào một thuộc tính không khóa khác.
+    \item Các quan hệ giữa các thực thể được thể hiện bằng khóa ngoại như BookID, TransactionID, OwnerAccountID, BorrowerAccountID và VolunteerAccountID.
+    \item Các dữ liệu phát sinh nhiều lần như lịch sử giao dịch, vận chuyển và khiếu nại được tách thành bảng riêng để giảm dư thừa và tăng khả năng truy vết.
+\end{itemize}
+
+\section{Đánh giá tiến độ}
+
+Tính đến thời điểm hiện tại, nhóm đã hoàn thành được khoảng \textbf{45\%} khối lượng công việc của bài tập lớn. Các hạng mục phân tích yêu cầu, mô hình hóa quy trình ở mức tổng quan, mô hình hóa dữ liệu và chuẩn hóa cơ sở dữ liệu ban đầu đã được hoàn thành. Nội dung báo cáo đã được chỉnh để thống nhất với DFD mức 0 và ERD mới.
+
+Các kết quả chính đã đạt được gồm:
+\begin{itemize}
+    \item Hoàn thành phân tích nghiệp vụ trao đổi/mượn sách và quy tắc cộng/trừ điểm.
+    \item Hoàn thành DFD mức 0 với năm tiến trình và năm kho dữ liệu.
+    \item Hoàn thành ERD với sáu thực thể chính.
+    \item Hoàn thành chuyển đổi ERD sang lược đồ quan hệ và kiểm tra chuẩn 3NF.
+    \item Xác định các điểm cần tiếp tục phân rã ở giai đoạn sau như giao dịch, vận chuyển và xử lý khiếu nại.
+\end{itemize}
+
+\section{Khó khăn gặp phải}
+
+\begin{itemize}
+    \item Nhóm gặp khó khăn trong việc cân bằng giữa DFD và ERD, đặc biệt là cách liên kết các luồng nghiệp vụ giao dịch, vận chuyển và khiếu nại với các thực thể dữ liệu tương ứng.
+    \item Nhóm cần thống nhất cách lưu lịch sử thay đổi trạng thái giao dịch. Phương án hiện tại là dùng bảng \textbf{Transaction History} để truy vết trạng thái và ghi chú cập nhật.
+    \item Nghiệp vụ điểm thưởng cần được kiểm soát chặt để tránh cộng/trừ điểm trùng lặp khi người dùng xác nhận lại giao dịch hoặc đơn giao sách.
+    \item Bảng \textbf{Complaint} có nhiều khóa ngoại tham chiếu về \textbf{Account}, nên cần mô tả rõ vai trò của từng tài khoản: người khiếu nại, người bị khiếu nại và người xử lý.
+    \item Khi chuẩn hóa 3NF, nhóm phải rà soát lại các thuộc tính có thể gây phụ thuộc bắc cầu hoặc lặp dữ liệu, nhất là dữ liệu lịch sử giao dịch và vận chuyển.
+\end{itemize}
+
+\section{Kế hoạch giai đoạn tiếp theo}
+
+\begin{itemize}
+    \item Phân rã DFD Level 0 xuống DFD Level 1 cho các tiến trình phức tạp, ưu tiên \textbf{3.0 Quản lý giao dịch}, \textbf{4.0 Quản lý vận chuyển} và \textbf{5.0 Quản trị hệ thống / xử lý khiếu nại}.
+    \item Bổ sung bảng quyết định cho các nghiệp vụ quan trọng: kiểm tra điều kiện tạo giao dịch, cập nhật điểm, xác nhận giao hàng và xử lý khiếu nại.
+    \item Hoàn thiện lược đồ cơ sở dữ liệu logic từ 3NF, bao gồm kiểu dữ liệu, ràng buộc khóa ngoại, ràng buộc duy nhất và kiểm tra trạng thái hợp lệ.
+    \item Lên bản vẽ thiết kế giao diện người dùng (UI/UX Mockups) cho các màn hình chính: đăng nhập/đăng ký, danh sách sách, chi tiết sách, tạo giao dịch, vận chuyển, khiếu nại và trang quản trị.
+    \item Chuẩn bị use case chi tiết và tiêu chí kiểm thử cho từng chức năng cốt lõi của hệ thống.
+\end{itemize}
+
+\end{document}

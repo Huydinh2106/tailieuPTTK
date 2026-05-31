@@ -1,0 +1,25 @@
+{
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "tectonic",
+      "tools": [
+        "tectonic"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "tectonic",
+      "command": "/opt/homebrew/bin/tectonic",
+      "args": [
+        "%DOC%",
+        "--synctex",
+        "--keep-intermediates"
+      ],
+      "env": {}
+    }
+  ],
+  "latex-workshop.latex.recipe.default": "tectonic",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.view.pdf.viewer": "tab"
+}

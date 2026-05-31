@@ -1,0 +1,89 @@
+% Bien dich khuyen nghi: XeLaTeX tren Overleaf/LaTeX online.
+% File main.tex chi giu cau hinh chung va include cac module noi dung.
+\documentclass{article}
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\IfFontExistsTF{Tinos}{\setmainfont{Tinos}}{\setmainfont{Noto Serif}}}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{titlesec}
+
+\renewcommand{\baselinestretch}{1.15}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\renewcommand{\arraystretch}{1.18}
+\setlist[itemize]{topsep=0.2em,itemsep=0.2em,leftmargin=1.6em}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\setcounter{secnumdepth}{3}
+
+\titleformat{\section}{\Large\bfseries}{CHƯƠNG \thesection:}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection.}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.6em}{}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+% Lenh chen hinh co kiem tra file ton tai de tranh loi khi upload thieu anh.
+% Cach dung: \insertdiagram{ten_file}{ti_le_chieu_rong}{chu_thich}
+\newcommand{\insertdiagram}[3]{%
+\begin{figure}[H]
+    \centering
+    \IfFileExists{#1}{%
+        \includegraphics[width=#2\textwidth]{#1}%
+    }{%
+        \fbox{\begin{minipage}[c][5cm][c]{0.86\textwidth}
+        \centering
+        \textbf{Vị trí chèn hình}\\[0.3em]
+        Upload file \texttt{\detokenize{#1}} đúng theo đường dẫn trong project.
+        \end{minipage}}%
+    }
+    \caption{#3}
+\end{figure}
+}
+
+\begin{document}
+
+% Neu ban co file bia cua truong, giu ten file la title_page.tex.
+% Neu khong co, khoi ben duoi se tu tao bia don gian de file van bien dich duoc.
+\IfFileExists{title_page.tex}{\input{title_page}}{%
+\begin{titlepage}
+    \centering
+    {\Large\bfseries BÁO CÁO TIẾN ĐỘ PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG THÔNG TIN\par}
+    \vspace{1.2cm}
+    {\large\bfseries Hệ thống trao đổi sách cho CLB Sách\par}
+    \vspace{0.8cm}
+    {\large Đề tài: Ứng dụng trao đổi sách\par}
+    \vspace{0.5cm}
+    {\large Nội dung: Tổng quan đề tài, phân tích yêu cầu, luồng dữ liệu, cơ sở dữ liệu, thiết kế hệ thống và hướng phát triển\par}
+    \vfill
+    \begin{tabular}{L{0.35\textwidth}L{0.5\textwidth}}
+        \toprule
+        \textbf{Học phần} & Phân tích và thiết kế hệ thống thông tin \\
+        \textbf{Nhóm/Sinh viên thực hiện} & [Điền tên nhóm hoặc thành viên] \\
+        \textbf{Giảng viên hướng dẫn} & [Điền tên giảng viên] \\
+        \textbf{Thời gian} & [Điền thời gian nộp báo cáo] \\
+        \bottomrule
+    \end{tabular}
+\end{titlepage}
+}
+
+% Phan cong:
+% - Nguoi 1 phu trach 3 module dau: 01, 02, 03.
+% - Nguoi 2 phu trach 3 module cuoi: 04, 05, 06.
+\input{sections/01-tong-quan-de-tai}
+\input{sections/02-khao-sat-va-phan-tich-yeu-cau}
+\input{sections/03-phan-tich-luong-du-lieu-he-thong}
+\input{sections/04-thiet-ke-co-so-du-lieu}
+\input{sections/05-thiet-ke-he-thong}
+\input{sections/06-ket-luan-va-huong-phat-trien}
+
+\end{document}
