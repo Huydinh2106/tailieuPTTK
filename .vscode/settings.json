@@ -12,7 +12,7 @@
       "name": "tectonic",
       "command": "/opt/homebrew/bin/tectonic",
       "args": [
-        "%DOC%",
+        "%DOC_EXT%",
         "--synctex",
         "--keep-intermediates"
       ],
