@@ -1,37 +1,194 @@
+% !TEX root = ../main.tex
 \clearpage
 
 \section{PHÂN TÍCH LUỒNG DỮ LIỆU HỆ THỐNG}
 
+Trong chương này, hệ thống BookShare Hub được phân tích dưới góc nhìn luồng dữ liệu. Nội dung tập trung xác định các tác nhân ngoài, mô tả sơ đồ ngữ cảnh, sơ đồ luồng dữ liệu mức 0, đồng thời đặc tả các luồng dữ liệu, kho dữ liệu và tiến trình xử lý chính của hệ thống.
+
+Do phạm vi hệ thống ở mức vừa phải, các chức năng nghiệp vụ chính đã được thể hiện đầy đủ trong DFD mức 0. Vì vậy, báo cáo không triển khai DFD mức 1 mà mô tả chi tiết bằng các bảng đặc tả luồng dữ liệu, kho dữ liệu và tiến trình xử lý.
+
 \subsection{Xác định tác nhân ngoài của hệ thống}
+
+Hệ thống BookShare Hub có các tác nhân ngoài chính sau:
+
+{\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{L{0.08\textwidth}L{0.22\textwidth}Y}
+\toprule
+\textbf{STT} & \textbf{Tác nhân} & \textbf{Mô tả} \\
+\midrule
+1 & Khách chưa đăng nhập & Người truy cập hệ thống nhưng chưa có tài khoản hoặc chưa đăng nhập. Có thể thực hiện đăng ký hoặc đăng nhập. \\
+2 & Thành viên & Người dùng chính của hệ thống, có thể quản lý hồ sơ, địa chỉ, sách cá nhân, tìm kiếm sách, gửi yêu cầu mượn/trao đổi và gửi khiếu nại. \\
+3 & Chủ sách & Thành viên sở hữu sách, có quyền cập nhật thông tin sách và phản hồi yêu cầu mượn/trao đổi sách. \\
+4 & Người nhận/mượn sách & Thành viên gửi yêu cầu nhận sách, mượn sách, xác nhận đã nhận sách và yêu cầu hoàn trả sách. \\
+5 & Người giao sách tình nguyện & Thành viên đăng ký hỗ trợ giao sách, có thể nhận đơn giao và cập nhật trạng thái giao nhận. \\
+6 & Quản trị viên & Người quản lý hệ thống, có quyền quản lý thành viên, sách, giao dịch, khiếu nại và theo dõi dữ liệu vận hành. \\
+\bottomrule
+\end{tabularx}
+}
+
+Trong thực tế sử dụng, một tài khoản có thể đảm nhiệm nhiều vai trò khác nhau tùy từng giao dịch. Ví dụ, một thành viên có thể là chủ sách ở giao dịch này, nhưng lại là người mượn sách ở giao dịch khác. Người giao sách tình nguyện cũng là thành viên, nhưng được bổ sung quyền nhận và xử lý đơn giao sách.
 
 \subsection{Sơ đồ ngữ cảnh - Context Diagram}
 
 \subsubsection{Mô tả sơ đồ ngữ cảnh}
 
+Sơ đồ ngữ cảnh mô tả hệ thống BookShare Hub như một tiến trình tổng quát duy nhất. Hệ thống nhận dữ liệu từ các tác nhân bên ngoài, xử lý dữ liệu và phản hồi lại kết quả tương ứng.
+
+Khách chưa đăng nhập gửi thông tin đăng ký hoặc đăng nhập vào hệ thống. Sau khi xác thực thành công, người dùng có thể sử dụng các chức năng dành cho thành viên như cập nhật hồ sơ, quản lý địa chỉ, đăng sách, tìm kiếm sách, tạo yêu cầu mượn hoặc trao đổi sách.
+
+Thành viên gửi thông tin sách, thông tin yêu cầu giao dịch, địa chỉ giao nhận và nội dung khiếu nại vào hệ thống. Hệ thống xử lý và trả về danh sách sách, trạng thái giao dịch, lịch sử điểm, lịch sử giao dịch và thông báo các yêu cầu cần xử lý.
+
+Người giao sách tình nguyện nhận thông tin đơn giao từ hệ thống, sau đó gửi lại thông tin nhận đơn và cập nhật trạng thái giao sách. Quản trị viên nhận dữ liệu tổng quan từ hệ thống và thực hiện các thao tác quản lý như cập nhật tài khoản, quản lý sách, theo dõi giao dịch và xử lý khiếu nại.
+
 \subsubsection{Context Diagram}
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[font=\small]
+    \tikzstyle{actor}=[rectangle, draw, rounded corners=3pt, align=center, minimum width=3.4cm, minimum height=1.0cm]
+    \tikzstyle{system}=[rectangle, draw, rounded corners=14pt, align=center, minimum width=4.0cm, minimum height=1.4cm]
+
+    \node[system] (system) at (0,0) {\textbf{BookShare Hub}\\Hệ thống trao đổi sách};
+    \node[actor] (guest) at (-6,2.3) {Khách\\chưa đăng nhập};
+    \node[actor] (member) at (-6,-2.3) {Thành viên};
+    \node[actor] (shipper) at (6,2.3) {Người giao sách\\tình nguyện};
+    \node[actor] (admin) at (6,-2.3) {Quản trị viên};
+
+    \draw[->] (guest) -- node[above, align=center]{Thông tin\\đăng ký/đăng nhập} (system);
+    \draw[->] (system) -- node[below, align=center]{Kết quả xác thực} (guest);
+
+    \draw[->] (member) -- node[above, sloped, align=center]{Hồ sơ, địa chỉ, sách,\\yêu cầu giao dịch, khiếu nại} (system);
+    \draw[->] (system) -- node[below, sloped, align=center]{Danh sách sách, trạng thái,\\lịch sử, thông báo} (member);
+
+    \draw[->] (shipper) -- node[above, align=center]{Nhận đơn, cập nhật\\trạng thái giao sách} (system);
+    \draw[->] (system) -- node[below, align=center]{Thông tin đơn giao,\\điểm thưởng} (shipper);
+
+    \draw[->] (admin) -- node[above, sloped, align=center]{Yêu cầu quản trị,\\kết quả xử lý khiếu nại} (system);
+    \draw[->] (system) -- node[below, sloped, align=center]{Dữ liệu thống kê,\\dữ liệu vận hành} (admin);
+\end{tikzpicture}%
+}
+\caption*{Sơ đồ ngữ cảnh của hệ thống BookShare Hub}
+\end{figure}
+
+Sơ đồ trên thể hiện hệ thống trung tâm BookShare Hub, các tác nhân ngoài gồm khách chưa đăng nhập, thành viên, người giao sách tình nguyện và quản trị viên, cùng những luồng dữ liệu tổng quát ra vào hệ thống.
 
 \subsection{Sơ đồ luồng dữ liệu - DFD mức 0}
 
 \subsubsection{Mô tả DFD mức 0}
 
+DFD mức 0 phân rã hệ thống BookShare Hub thành các tiến trình xử lý chính. Các tiến trình này đại diện cho những nhóm chức năng nghiệp vụ quan trọng của hệ thống.
+
+Các tiến trình chính gồm:
+
+{\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{L{0.18\textwidth}L{0.25\textwidth}Y}
+\toprule
+\textbf{Mã tiến trình} & \textbf{Tên tiến trình} & \textbf{Mô tả} \\
+\midrule
+P1 & Quản lý tài khoản & Xử lý đăng ký, đăng nhập, cập nhật hồ sơ, quản lý địa chỉ, vai trò và trạng thái tài khoản. \\
+P2 & Quản lý sách & Xử lý thêm, sửa, xóa, ẩn/hiện, tìm kiếm, lọc và hiển thị thông tin sách. \\
+P3 & Quản lý giao dịch sách & Xử lý yêu cầu mượn/trao đổi, duyệt yêu cầu, xác nhận nhận sách, hoàn trả sách và cập nhật điểm. \\
+P4 & Quản lý giao nhận & Xử lý đăng ký người giao sách, tạo đơn giao, nhận đơn và cập nhật trạng thái giao sách. \\
+P5 & Quản lý khiếu nại & Xử lý tạo khiếu nại, xem khiếu nại và cập nhật kết quả xử lý. \\
+P6 & Quản trị hệ thống & Xử lý thống kê tổng quan, quản lý thành viên, sách, giao dịch và khiếu nại. \\
+\bottomrule
+\end{tabularx}
+}
+
+Các kho dữ liệu chính gồm:
+
+{\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{L{0.14\textwidth}L{0.25\textwidth}Y}
+\toprule
+\textbf{Mã kho} & \textbf{Kho dữ liệu} & \textbf{Mô tả} \\
+\midrule
+D1 & Tài khoản & Lưu thông tin người dùng, vai trò, trạng thái và điểm. \\
+D2 & Địa chỉ & Lưu địa chỉ nhận sách của từng tài khoản. \\
+D3 & Sách & Lưu thông tin sách, chủ sở hữu, tình trạng và trạng thái sách. \\
+D4 & Giao dịch sách & Lưu thông tin yêu cầu mượn/trao đổi và trạng thái giao dịch. \\
+D5 & Lịch sử giao dịch & Lưu lịch sử thay đổi trạng thái giao dịch. \\
+D6 & Đơn giao sách & Lưu thông tin vận chuyển sách. \\
+D7 & Khiếu nại & Lưu thông tin khiếu nại và kết quả xử lý. \\
+D8 & Lịch sử điểm & Lưu biến động cộng/trừ điểm của người dùng. \\
+\bottomrule
+\end{tabularx}
+}
+
 \subsubsection{DFD mức 0}
 
-\subsection{Sơ đồ luồng dữ liệu - DFD mức 1}
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[font=\scriptsize]
+    \tikzstyle{actor}=[rectangle, draw, rounded corners=3pt, align=center, minimum width=2.6cm, minimum height=0.75cm]
+    \tikzstyle{process}=[rectangle, draw, rounded corners=12pt, align=center, minimum width=2.5cm, minimum height=1.05cm]
+    \tikzstyle{store}=[rectangle, draw, align=center, minimum width=2.7cm, minimum height=0.65cm]
 
-\subsubsection{DFD mức 1 cho chức năng quản lý tài khoản}
+    \node[actor] (guest) at (-7,3.2) {Khách\\chưa đăng nhập};
+    \node[actor] (member) at (-7,0.0) {Thành viên};
+    \node[actor] (shipper) at (7,-1.1) {Người giao sách\\tình nguyện};
+    \node[actor] (admin) at (7,3.0) {Quản trị viên};
 
-\subsubsection{DFD mức 1 cho chức năng quản lý sách}
+    \node[process] (p1) at (-3.6,3.0) {\textbf{P1}\\Quản lý\\tài khoản};
+    \node[process] (p2) at (-3.6,0.4) {\textbf{P2}\\Quản lý\\sách};
+    \node[process] (p3) at (0.0,0.4) {\textbf{P3}\\Quản lý\\giao dịch sách};
+    \node[process] (p4) at (3.6,-1.1) {\textbf{P4}\\Quản lý\\giao nhận};
+    \node[process] (p5) at (0.0,-2.5) {\textbf{P5}\\Quản lý\\khiếu nại};
+    \node[process] (p6) at (3.6,3.0) {\textbf{P6}\\Quản trị\\hệ thống};
 
-\subsubsection{DFD mức 1 cho chức năng yêu cầu nhận/mượn sách}
+    \node[store] (d1) at (-3.6,5.0) {\textbf{D1} Tài khoản};
+    \node[store] (d2) at (-6.1,1.7) {\textbf{D2} Địa chỉ};
+    \node[store] (d3) at (-3.6,-1.5) {\textbf{D3} Sách};
+    \node[store] (d4) at (0.0,2.15) {\textbf{D4} Giao dịch sách};
+    \node[store] (d5) at (-1.8,-4.1) {\textbf{D5} Lịch sử giao dịch};
+    \node[store] (d6) at (3.6,-2.9) {\textbf{D6} Đơn giao sách};
+    \node[store] (d7) at (1.8,-4.1) {\textbf{D7} Khiếu nại};
+    \node[store] (d8) at (5.8,0.9) {\textbf{D8} Lịch sử điểm};
 
-\subsubsection{DFD mức 1 cho chức năng giao nhận}
+    \draw[->] (guest) -- node[above]{F1, F2} (p1);
+    \draw[->] (p1) -- node[below]{Kết quả xác thực} (guest);
 
-\subsubsection{DFD mức 1 cho chức năng khiếu nại}
+    \draw[->] (member) -- node[above, sloped]{F3, F4} (p1);
+    \draw[<->] (p1) -- node[right]{Hồ sơ, điểm} (d1);
+    \draw[<->] (p1) -- node[above, sloped]{Địa chỉ} (d2);
 
-\subsubsection{DFD mức 1 cho chức năng quản trị}
+    \draw[->] (member) -- node[above]{F5, F6} (p2);
+    \draw[->] (p2) -- node[below]{F7} (member);
+    \draw[<->] (p2) -- node[right]{Dữ liệu sách} (d3);
 
-\subsection{Đặc tả luồng dữ liệu}
+    \draw[->] (member) -- node[above, sloped]{F8, F10, F11} (p3);
+    \draw[->] (p3) -- node[below, sloped]{Trạng thái giao dịch} (member);
+    \draw[<->] (p3) -- node[above]{Giao dịch} (d4);
+    \draw[->] (p3) -- node[left]{Lịch sử} (d5);
+    \draw[->] (p3) -- node[above, sloped]{Cập nhật sách} (d3);
+    \draw[->] (p3) -- node[above]{F13} (p4);
+    \draw[->] (p3) -- node[above, sloped]{F20} (d8);
 
-\subsection{Đặc tả kho dữ liệu}
+    \draw[->] (shipper) -- node[above]{F14, F15} (p4);
+    \draw[->] (p4) -- node[below]{Trạng thái đơn giao} (shipper);
+    \draw[<->] (p4) -- node[right]{Đơn giao} (d6);
+    \draw[->] (p4) -- node[right]{F20} (d8);
 
-\subsection{Đặc tả tiến trình xử lý}
+    \draw[->] (member) -- node[below, sloped]{F16} (p5);
+    \draw[->] (admin) -- node[above, sloped]{F17} (p5);
+    \draw[<->] (p5) -- node[right]{Khiếu nại} (d7);
+
+    \draw[->] (admin) -- node[above]{F18} (p6);
+    \draw[->] (p6) -- node[below]{F19} (admin);
+    \draw[->] (d1) -- (p6);
+    \draw[->] (d3) -- node[above, sloped]{Dữ liệu quản trị} (p6);
+    \draw[->] (d4) -- (p6);
+    \draw[->] (d6) -- (p6);
+    \draw[->] (d7) -- (p6);
+    \draw[->] (d8) -- (p6);
+\end{tikzpicture}%
+}
+\caption*{DFD mức 0 của hệ thống BookShare Hub}
+\end{figure}
+
+DFD mức 0 thể hiện các tác nhân ngoài, sáu tiến trình xử lý P1 đến P6, tám kho dữ liệu D1 đến D8 và những luồng dữ liệu chính giữa tác nhân, tiến trình và kho dữ liệu.
+

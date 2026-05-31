@@ -1,25 +1,150 @@
+% !TEX root = ../main.tex
 \clearpage
 
-\section{KHẢO SÁT VÀ PHÂN TÍCH YÊU CẦU}
-
-\subsection{Khảo sát hiện trạng}
-
-\subsection{Vấn đề cần giải quyết}
-
-\subsection{Giải pháp đề xuất}
+\section{PHÂN TÍCH YÊU CẦU}
 
 \subsection{Yêu cầu chức năng}
 
 \subsubsection{Chức năng dành cho người dùng}
 
+Người dùng trong hệ thống là thành viên câu lạc bộ đọc sách. Các chức năng chính gồm:
+
+\begin{longtable}{L{0.07\textwidth}L{0.25\textwidth}L{0.56\textwidth}}
+    \toprule
+    \textbf{STT} & \textbf{Chức năng} & \textbf{Mô tả} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{STT} & \textbf{Chức năng} & \textbf{Mô tả} \\
+    \midrule
+    \endhead
+    1 & Đăng ký tài khoản & Người dùng đăng ký bằng email, mật khẩu, họ tên và số điện thoại. \\
+    2 & Đăng nhập/đăng xuất & Người dùng đăng nhập để sử dụng hệ thống. \\
+    3 & Quản lý hồ sơ cá nhân & Cập nhật họ tên, số điện thoại và xem vai trò tài khoản. \\
+    4 & Quản lý địa chỉ & Thêm, sửa, xóa địa chỉ nhận sách và đặt địa chỉ mặc định. \\
+    5 & Đăng sách & Thêm sách vào kho với thông tin tên sách, tác giả, thể loại, năm xuất bản, tình trạng, địa chỉ lấy sách và ảnh bìa. \\
+    6 & Quản lý sách cá nhân & Sửa thông tin sách, ẩn hoặc hiện sách. \\
+    7 & Tìm kiếm sách & Tìm sách theo tên, tác giả hoặc thể loại. \\
+    8 & Lọc sách & Lọc sách theo trạng thái, thể loại hoặc phạm vi hiển thị. \\
+    9 & Xem chi tiết sách & Xem thông tin sách, chủ sách, tình trạng và địa chỉ lấy sách. \\
+    10 & Gửi yêu cầu mượn/trao đổi & Tạo yêu cầu mượn sách hoặc trao đổi vĩnh viễn. \\
+    11 & Chọn hình thức giao nhận & Chọn tự giao nhận hoặc nhờ người giao sách tình nguyện. \\
+    12 & Xác nhận nhận sách & Người nhận xác nhận sau khi đã nhận được sách. \\
+    13 & Yêu cầu hoàn trả sách & Với giao dịch mượn, người mượn có thể tạo yêu cầu trả sách. \\
+    14 & Theo dõi giao dịch & Xem danh sách giao dịch đã cho mượn, đã mượn và trạng thái tương ứng. \\
+    15 & Theo dõi điểm & Xem số điểm hiện tại và lịch sử biến động điểm. \\
+    16 & Gửi khiếu nại & Gửi khiếu nại khi phát sinh tranh chấp trong quá trình giao dịch. \\
+    \bottomrule
+\end{longtable}
+
 \subsubsection{Chức năng dành cho quản trị viên}
 
-\subsubsection{Chức năng dành cho nhân viên giao hàng nếu có}
+Quản trị viên là người có quyền quản lý và giám sát toàn bộ hệ thống. Các chức năng gồm:
 
-\subsubsection{Các chức năng khác nếu có}
+\begin{longtable}{L{0.07\textwidth}L{0.25\textwidth}L{0.56\textwidth}}
+    \toprule
+    \textbf{STT} & \textbf{Chức năng} & \textbf{Mô tả} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{STT} & \textbf{Chức năng} & \textbf{Mô tả} \\
+    \midrule
+    \endhead
+    1 & Xem tổng quan hệ thống & Xem số lượng thành viên, sách, giao dịch và khiếu nại. \\
+    2 & Quản lý thành viên & Xem, tìm kiếm, chỉnh sửa thông tin tài khoản. \\
+    3 & Phân quyền tài khoản & Cập nhật vai trò thành viên, người giao sách hoặc quản trị viên. \\
+    4 & Khóa/mở tài khoản & Thay đổi trạng thái hoạt động của tài khoản. \\
+    5 & Quản lý điểm & Cập nhật điểm của thành viên khi cần thiết. \\
+    6 & Quản lý kho sách & Xem, tìm kiếm, chỉnh sửa hoặc xóa sách trong hệ thống. \\
+    7 & Theo dõi giao dịch & Xem toàn bộ giao dịch giữa các thành viên. \\
+    8 & Quản lý khiếu nại & Xem, cập nhật trạng thái và nhập kết quả xử lý khiếu nại. \\
+    9 & Giám sát hoạt động & Theo dõi các giao dịch gần đây và các thành viên có đóng góp tích cực. \\
+    \bottomrule
+\end{longtable}
+
+\subsubsection{Chức năng dành cho người giao sách tình nguyện}
+
+Trong hệ thống BookShare Hub, vai trò giao hàng được triển khai dưới dạng \textbf{người giao sách tình nguyện}. Đây là thành viên đăng ký hỗ trợ vận chuyển sách giữa các bên.
+
+\begin{longtable}{L{0.07\textwidth}L{0.25\textwidth}L{0.56\textwidth}}
+    \toprule
+    \textbf{STT} & \textbf{Chức năng} & \textbf{Mô tả} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{STT} & \textbf{Chức năng} & \textbf{Mô tả} \\
+    \midrule
+    \endhead
+    1 & Đăng ký làm người giao sách & Thành viên có thể đăng ký để nhận quyền giao sách. \\
+    2 & Xem đơn giao đang mở & Xem các đơn giao sách cần người hỗ trợ. \\
+    3 & Nhận đơn giao & Người giao sách nhận đơn nếu không phải là người tham gia giao dịch đó. \\
+    4 & Xem thông tin giao nhận & Xem điểm lấy sách, điểm giao sách, người gửi và người nhận. \\
+    5 & Cập nhật trạng thái giao & Chuyển trạng thái từ đã nhận đơn sang đang giao và đã giao. \\
+    6 & Nhận điểm thưởng & Được cộng điểm sau khi xác nhận giao sách thành công. \\
+    7 & Theo dõi nhiệm vụ cá nhân & Xem các đơn giao mà mình đang phụ trách. \\
+    \bottomrule
+\end{longtable}
+
+\subsubsection{Các chức năng khác}
+
+Ngoài các chức năng chính, hệ thống còn có một số chức năng hỗ trợ:
+
+\begin{itemize}
+    \item Hiển thị dashboard tổng quan cho người dùng.
+    \item Hiển thị thông báo các giao dịch cần xử lý.
+    \item Lưu lịch sử trạng thái giao dịch.
+    \item Lưu lịch sử cộng/trừ điểm.
+    \item Upload và hiển thị ảnh bìa sách.
+    \item Hiển thị tài khoản demo phục vụ kiểm thử.
+    \item Kiểm tra dữ liệu đầu vào khi tạo sách, tạo giao dịch hoặc gửi khiếu nại.
+    \item Phân biệt giao dịch mượn có hoàn trả và giao dịch trao đổi vĩnh viễn.
+\end{itemize}
 
 \subsection{Yêu cầu phi chức năng}
 
+\begin{longtable}{L{0.25\textwidth}L{0.65\textwidth}}
+    \toprule
+    \textbf{Nhóm yêu cầu} & \textbf{Nội dung} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Nhóm yêu cầu} & \textbf{Nội dung} \\
+    \midrule
+    \endhead
+    Bảo mật & Người dùng phải đăng nhập mới sử dụng hệ thống; dữ liệu được kiểm soát theo vai trò. \\
+    Phân quyền & Thành viên, người giao sách và quản trị viên có quyền hạn khác nhau. \\
+    Tính toàn vẹn dữ liệu & Điểm, trạng thái sách và trạng thái giao dịch phải được cập nhật đúng quy trình. \\
+    Dễ sử dụng & Giao diện rõ ràng, dễ thao tác, phù hợp với người dùng phổ thông. \\
+    Hiệu năng & Dữ liệu sách, giao dịch và tài khoản cần được tải nhanh, có hỗ trợ tìm kiếm và lọc. \\
+    Khả năng mở rộng & Có thể mở rộng thêm nhắn tin, đánh giá sách, gợi ý sách hoặc tích hợp vận chuyển. \\
+    Khả năng bảo trì & Mã nguồn được chia theo module như sách, giao dịch, giao hàng, khiếu nại, quản trị. \\
+    Tương thích & Hệ thống chạy trên trình duyệt web hiện đại. \\
+    Độ tin cậy & Các nghiệp vụ quan trọng như cộng/trừ điểm và xác nhận giao dịch phải được xử lý chính xác. \\
+    Giao diện & Giao diện cần nhất quán, dễ quan sát trạng thái và thao tác nhanh. \\
+    \bottomrule
+\end{longtable}
+
 \subsection{Phân quyền người dùng}
 
-\subsection{Quy trình nghiệp vụ tổng quát}
+Hệ thống có các nhóm quyền chính sau:
+
+\begin{longtable}{L{0.28\textwidth}L{0.62\textwidth}}
+    \toprule
+    \textbf{Vai trò} & \textbf{Quyền hạn} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Vai trò} & \textbf{Quyền hạn} \\
+    \midrule
+    \endhead
+    Khách chưa đăng nhập & Chỉ có thể đăng ký hoặc đăng nhập vào hệ thống. \\
+    Thành viên & Quản lý hồ sơ, địa chỉ, sách cá nhân, gửi yêu cầu mượn/trao đổi, xác nhận nhận sách, gửi khiếu nại. \\
+    Chủ sách & Có các quyền của thành viên và thêm quyền chấp nhận hoặc từ chối yêu cầu đối với sách của mình. \\
+    Người giao sách tình nguyện & Có quyền của thành viên và thêm quyền nhận đơn giao, cập nhật trạng thái giao sách. \\
+    Quản trị viên & Quản lý toàn bộ tài khoản, sách, giao dịch, khiếu nại và dữ liệu vận hành hệ thống. \\
+    \bottomrule
+\end{longtable}
+
+Việc phân quyền giúp đảm bảo người dùng chỉ được thao tác trên dữ liệu phù hợp với vai trò của mình. Ví dụ, thành viên không thể chỉnh sửa sách của người khác, người giao sách không được nhận đơn giao của chính giao dịch mình tham gia, và chỉ quản trị viên mới có quyền quản lý toàn bộ thành viên trong hệ thống.
+
+

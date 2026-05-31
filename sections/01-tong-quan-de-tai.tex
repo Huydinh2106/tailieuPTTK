@@ -1,13 +1,38 @@
+% !TEX root = ../main.tex
 \section{TỔNG QUAN ĐỀ TÀI}
 
 \subsection{Giới thiệu đề tài}
 
+Đề tài BookShare Hub là hệ thống web hỗ trợ trao đổi và mượn sách dành cho câu lạc bộ đọc sách. Hệ thống được xây dựng nhằm tạo ra một không gian trực tuyến giúp các thành viên dễ dàng đăng tải sách, tìm kiếm sách, gửi yêu cầu mượn hoặc trao đổi sách với nhau.
+
+Trong thực tế, nhiều câu lạc bộ đọc sách thường quản lý việc chia sẻ sách thủ công thông qua tin nhắn, bảng tính hoặc trao đổi trực tiếp. Cách làm này dễ phát sinh các vấn đề như khó theo dõi tình trạng sách, khó quản lý người mượn, thời hạn trả sách, lịch sử giao dịch, điểm thưởng và các tranh chấp giữa thành viên. Vì vậy, BookShare Hub được phát triển để số hóa quy trình chia sẻ sách, giúp việc quản lý minh bạch, thuận tiện và có tổ chức hơn.
+
+
 \subsection{Lý do chọn đề tài}
 
-\subsection{Mục tiêu đề tài}
+Đề tài được lựa chọn vì có tính thực tiễn cao, phù hợp với nhu cầu của các câu lạc bộ đọc sách, nhóm học tập hoặc cộng đồng yêu sách. Hệ thống giúp tận dụng lại những cuốn sách đã đọc, giảm chi phí mua sách mới, đồng thời khuyến khích tinh thần chia sẻ tri thức giữa các thành viên.
 
-\subsection{Phạm vi đề tài}
+Bên cạnh đó, đề tài cũng phù hợp để vận dụng các kiến thức về phát triển phần mềm như xây dựng giao diện web, xác thực người dùng, phân quyền tài khoản, thiết kế cơ sở dữ liệu, xử lý luồng nghiệp vụ, quản lý trạng thái giao dịch và đảm bảo an toàn dữ liệu. Đây là một đề tài có phạm vi vừa đủ, có tính ứng dụng rõ ràng và có thể mở rộng trong tương lai.
+
 
 \subsection{Đối tượng sử dụng hệ thống}
 
-\subsection{Công nghệ dự kiến sử dụng}
+Hệ thống BookShare Hub hướng đến các nhóm người dùng chính sau:
+
+\begin{tabularx}{\textwidth}{L{0.32\textwidth}Y}
+    \toprule
+    \textbf{Đối tượng} & \textbf{Vai trò trong hệ thống} \\
+    \midrule
+    Thành viên câu lạc bộ & Đăng ký, đăng nhập, cập nhật hồ sơ, tìm kiếm sách, gửi yêu cầu mượn hoặc trao đổi sách. \\
+    \midrule
+    Chủ sách & Đăng sách, cập nhật thông tin sách, ẩn/hiện sách, chấp nhận hoặc từ chối yêu cầu giao dịch. \\
+    \midrule
+    Người mượn/nhận sách & Gửi yêu cầu mượn hoặc trao đổi, xác nhận đã nhận sách, tạo yêu cầu hoàn trả sách. \\
+    \midrule
+    Người giao sách tình nguyện & Đăng ký làm người giao sách, nhận đơn giao, cập nhật trạng thái giao sách và nhận điểm thưởng. \\
+    \midrule
+    Quản trị viên & Theo dõi toàn bộ hệ thống, quản lý thành viên, quản lý sách, xử lý khiếu nại và giám sát hoạt động giao dịch. \\
+    \bottomrule
+\end{tabularx}
+
+Trong đó, một thành viên thông thường có thể vừa là chủ sách, vừa là người mượn sách tùy theo từng giao dịch cụ thể. Người giao sách tình nguyện là thành viên có thêm quyền nhận và xử lý các đơn vận chuyển sách. Quản trị viên có quyền cao nhất để giám sát và điều phối hoạt động của hệ thống.
