@@ -10,7 +10,7 @@
   "latex-workshop.latex.tools": [
     {
       "name": "tectonic",
-      "command": "/opt/homebrew/bin/tectonic",
+      "command": "d:/Study/IT/Course/pttkhttt/Report/tectonic.exe",
       "args": [
         "%DOC_EXT%",
         "--synctex",

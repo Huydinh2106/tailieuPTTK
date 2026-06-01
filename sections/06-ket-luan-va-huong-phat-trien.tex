@@ -1,10 +1,26 @@
 % !TEX root = ../main.tex
-\clearpage
 
-\section{KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}
+\section{KẾT LUẬN}
 
 \subsection{Kết quả đạt được}
 
+Sau quá trình nghiên cứu, khảo sát nghiệp vụ thực tế và tiến hành phân tích thiết kế, dự án xây dựng hệ thống chia sẻ sách BookShare Hub đã đạt được các kết quả cụ thể như sau:
+
+\begin{enumerate}
+    \item \textbf{Khảo sát và đặc tả yêu cầu chi tiết:} Đã hoàn thành khảo sát thực tế quy trình vận hành chia sẻ, mượn trả và trao đổi sách tại các câu lạc bộ. Từ đó, xây dựng tài liệu đặc tả đầy đủ các yêu cầu chức năng nghiệp vụ (quản lý tài khoản, quản lý sách chia sẻ, quy trình phê duyệt yêu cầu giao dịch mượn hoặc trao đổi sách, hệ thống điểm thưởng vận chuyển cho tình nguyện viên và giải quyết khiếu nại tranh chấp) cùng các yêu cầu phi chức năng của hệ thống.
+    \item \textbf{Thiết kế sơ đồ luồng dữ liệu hoàn chỉnh:} Xây dựng hệ thống sơ đồ luồng dữ liệu từ sơ đồ ngữ cảnh tổng quát đến các sơ đồ phân rã chi tiết cho từng phân hệ chức năng nghiệp vụ chính, làm rõ đường đi của dữ liệu chạy qua lại giữa các tác nhân người dùng (Thành viên, Tình nguyện viên, Quản trị viên) và hệ thống.
+    \item \textbf{Thiết kế cơ sở dữ liệu quan hệ tối ưu:} Thiết kế thành công mô hình thực thể liên kết và chuyển đổi thành cơ sở dữ liệu vật lý PostgreSQL hoàn chỉnh đạt dạng chuẩn 3NF. Hệ thống cơ sở dữ liệu được cấu trúc chặt chẽ với đầy đủ các bảng dữ liệu, khóa chính, khóa ngoại, ràng buộc kiểm tra toàn vẹn dữ liệu và chỉ mục tìm kiếm nâng cao giúp tối ưu hóa hiệu năng truy vấn thông tin sách thời gian thực.
+    \item \textbf{Tự động hóa nghiệp vụ bằng thủ tục lưu trữ:} Thiết kế và cài đặt thành công các bộ kích hoạt và thủ tục lưu trữ tự động hóa trong cơ sở dữ liệu để thực hiện kiểm tra điều kiện giao dịch và xử lý cộng hoặc trừ điểm thưởng của các thành viên ngay khi giao dịch hoàn tất, giúp đảm bảo tính nhất quán dữ liệu tối đa.
+    \item \textbf{Định hình cấu trúc phân hệ chức năng thực tế:} Phân chia hệ thống thành các phân hệ nghiệp vụ độc lập, nhất quán trực tiếp với cấu trúc tổ chức mã nguồn thực tế của dự án, giúp tạo điều kiện thuận lợi cho việc phát triển và bảo trì hệ thống.
+\end{enumerate}
+
 \subsection{Hạn chế}
 
-\subsection{Hướng phát triển}
+Mặc dù đã đạt được nhiều kết quả khả quan về mặt phân tích và thiết kế hệ thống, bản thiết kế của dự án BookShare Hub vẫn tồn tại một số điểm hạn chế cần được khắc phục như sau:
+
+\begin{enumerate}
+    \item \textbf{Thiết kế cơ sở dữ liệu chưa tối ưu cho lượng dữ liệu lớn:} Mô hình cơ sở dữ liệu hiện tại tập trung hoàn toàn vào việc chuẩn hóa đạt dạng chuẩn 3NF và thiết lập các ràng buộc toàn vẹn dữ liệu. Thiết kế này chưa xây dựng các giải pháp tối ưu hóa hiệu năng nâng cao (như phương án phân mảnh dữ liệu hay các cơ chế bộ nhớ đệm) để chuẩn bị cho kịch bản hệ thống phải chịu tải trọng lớn khi số lượng thành viên tăng cao.
+    \item \textbf{Thiết kế thuật toán điều phối vận chuyển còn ở mức đơn giản:} Thiết kế thuật toán điều phối cho phân hệ giao nhận vẫn ở mức sơ khai, hoàn toàn phụ thuộc vào việc tình nguyện viên đăng ký đơn thủ công. Bản thiết kế chưa mô hình hóa được thuật toán tự động phân bổ đơn vận chuyển thông minh hoặc thuật toán tối ưu hóa lộ trình di chuyển dựa trên khoảng cách địa lý thực tế.
+    \item \textbf{Mô hình hóa nghiệp vụ chưa bao quát hết kịch bản ngoại lệ:} Các sơ đồ nghiệp vụ và tài liệu thiết kế mới chỉ tập trung giải quyết các kịch bản hoạt động thông thường (luồng nghiệp vụ chuẩn) mà chưa mô hình hóa chi tiết các kịch bản xử lý ngoại lệ hoặc sự cố hệ thống phức tạp (như xử lý tranh chấp khi dữ liệu bị gián đoạn giữa chừng, lỗi mất kết nối mạng khi tình nguyện viên đang đi giao sách hoặc sự cố thất lạc sách).
+\end{enumerate}
+

@@ -1,32 +1,251 @@
 % !TEX root = ../main.tex
-\clearpage
 
 \section{THIẾT KẾ CƠ SỞ DỮ LIỆU}
+
+Chương này trình bày chi tiết về thiết kế cơ sở dữ liệu của hệ thống BookShare Hub, bao gồm mô hình thực thể liên kết (ERD), lược đồ quan hệ sau chuẩn hóa 3NF, mô tả chi tiết các bảng dữ liệu thực tế, các ràng buộc dữ liệu chính và giải thích tính đúng đắn của thiết kế.
 
 \subsection{Sơ đồ thực thể liên kết - ERD}
 
 \subsubsection{Mô tả ERD}
 
+Mô hình thực thể liên kết (ERD) của hệ thống BookShare Hub được xây dựng dựa trên các yêu cầu nghiệp vụ thực tế, bao gồm các thực thể cốt lõi sau:
+\begin{itemize}
+    \item \textbf{Account (Tài khoản):} Lưu trữ thông tin định danh của người dùng như họ tên, số điện thoại, email, mật khẩu, trạng thái hoạt động, vai trò (Thành viên, Tình nguyện viên, Quản trị viên) và số điểm tích lũy hiện có. Một tài khoản có thể có nhiều địa chỉ nhận sách khác nhau.
+    \item \textbf{Book (Sách):} Lưu trữ thông tin về các cuốn sách được đăng tải lên hệ thống bao gồm tên sách, tác giả, thể loại, năm xuất bản, tình trạng sách, địa điểm lấy sách mặc định và trạng thái khả dụng của sách. Mỗi cuốn sách thuộc sở hữu của một tài khoản cụ thể.
+    \item \textbf{Book Transaction (Giao dịch sách):} Đại diện cho hoạt động trao đổi vĩnh viễn hoặc mượn sách có hoàn trả giữa chủ sách và người nhận/mượn. Giao dịch lưu thông tin loại giao dịch, hình thức vận chuyển, vị trí giao nhận, thời hạn trả sách và trạng thái hiện tại của giao dịch.
+    \item \textbf{Transaction History (Lịch sử giao dịch):} Lưu lại lịch sử thay đổi trạng thái của từng giao dịch phục vụ mục đích kiểm vết, truy xuất tiến trình và giải quyết khiếu nại.
+    \item \textbf{Delivery (Giao nhận):} Lưu trữ thông tin vận chuyển đơn hàng bao gồm người giao sách tình nguyện phụ trách, thời điểm nhận đơn, thời điểm giao thành công, địa điểm lấy/giao sách và trạng thái vận chuyển.
+    \item \textbf{Complaint (Khiếu nại):} Lưu các phản hồi, khiếu nại của người dùng khi phát sinh tranh chấp trong giao dịch. Thực thể lưu thông tin người khiếu nại, người bị khiếu nại, quản trị viên xử lý và kết quả giải quyết.
+    \item \textbf{Point Ledger (Lịch sử biến động điểm):} Ghi nhận chi tiết lịch sử cộng hoặc trừ điểm của từng tài khoản, đảm bảo tính minh bạch, đối soát dễ dàng khi có yêu cầu.
+\end{itemize}
+
 \subsubsection{ERD tổng quát}
+
+Dưới đây là mô hình thực thể liên kết tổng quát của cơ sở dữ liệu hệ thống BookShare Hub, thể hiện rõ các thực thể, thuộc tính và mối liên kết logic giữa chúng.
+
+\insertdiagram{assets/ER.png}{1.05}{Mô hình thực thể liên kết (ERD) của hệ thống BookShare Hub}
 
 \subsection{Chuyển đổi ERD sang mô hình quan hệ}
 
+Từ mô hình ERD ở trên, hệ thống thực hiện chuyển đổi thành các bảng quan hệ với các quy tắc:
+\begin{itemize}
+    \item Mỗi thực thể mạnh được chuyển đổi thành một bảng dữ liệu tương ứng, khóa chính của thực thể trở thành khóa chính (PK) của bảng.
+    \item Các quan hệ 1-N  được hiện thực hóa bằng cách thêm thuộc tính khóa chính của bảng bên "1" làm khóa ngoại (FK) ở bảng bên "Nhiều". Ví dụ: Thuộc tính \texttt{OwnerAccountID} trong bảng \texttt{BOOK} là khóa ngoại tham chiếu đến khóa chính \texttt{AccountID} của bảng \texttt{ACCOUNT}.
+    \item Các quan hệ đặc biệt giữa cùng một thực thể (như người khiếu nại, người bị khiếu nại và người xử lý đều tham chiếu đến thực thể \texttt{Account}) được thể hiện qua các khóa ngoại khác nhau trỏ về cùng một bảng đích.
+\end{itemize}
+
 \subsection{Mô tả các bảng dữ liệu}
+
+Dưới đây là đặc tả chi tiết cấu trúc các bảng trong cơ sở dữ liệu hệ thống BookShare Hub sau khi được thiết lập và chuẩn hóa:
 
 \subsubsection{Bảng người dùng}
 
+Bao gồm thông tin tài khoản người dùng (\textbf{ACCOUNT}) và thông tin danh sách địa chỉ nhận sách tương ứng của người dùng (\textbf{ACCOUNT\_ADDRESS}):
+
+\paragraph{Bảng ACCOUNT}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+AccountID & PK & Mã định danh duy nhất của tài khoản (\textit{UUID}) \\
+FullName & & Họ và tên người dùng \\
+PhoneNumber & & Số điện thoại liên hệ \\
+EmailAddress & & Địa chỉ email (\textit{Duy nhất để đăng nhập}) \\
+Password & & Mật khẩu tài khoản đã mã hóa \\
+Points & & Điểm tích lũy hiện có (\textit{Mặc định +20đ khi tạo mới}) \\
+Status & & Trạng thái tài khoản (Hoạt động / Bị khóa) \\
+Role & & Vai trò của tài khoản (\textit{member, volunteer, admin}) \\
+\bottomrule
+\end{longtable}
+}
+
+\paragraph{Bảng ACCOUNT\_ADDRESS}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+AddressID & PK & Mã định danh duy nhất của địa chỉ \\
+AccountID & FK & Tham chiếu đến ACCOUNT \\
+Label & & Nhãn địa chỉ (\textit{Ví dụ: Nhà riêng, Trường học, CLB}) \\
+AddressText & & Địa chỉ chi tiết của người dùng \\
+IsDefault & & Đánh dấu địa chỉ mặc định (\textit{True/False}) \\
+\bottomrule
+\end{longtable}
+}
+
 \subsubsection{Bảng sách}
+
+Lưu giữ thông tin chi tiết các đầu sách cá nhân được chia sẻ trên hệ thống (\textbf{BOOK}):
+
+\paragraph{Bảng BOOK}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+BookID & PK & Mã định danh duy nhất của sách \\
+OwnerAccountID & FK & Tham chiếu đến ACCOUNT \\
+Title & & Tên sách \\
+Category & & Thể loại sách \\
+Author & & Tác giả \\
+PublicationYear & & Năm xuất bản \\
+Condition & & Tình trạng sách (\textit{new, good, used, worn}) \\
+PickupLocation & & Địa điểm lấy sách mặc định \\
+CoverImageUrl & & Đường dẫn ảnh bìa sách \\
+Status & & Trạng thái sách (\textit{available, negotiating, exchanged, borrowed, hidden}) \\
+\bottomrule
+\end{longtable}
+}
 
 \subsubsection{Bảng yêu cầu nhận/mượn sách}
 
+Bao gồm thông tin giao dịch trao đổi/mượn sách (\textbf{TRANSACTION}) và lịch sử cập nhật trạng thái giao dịch (\textbf{TRANSACTION\_HISTORY}):
+
+\paragraph{Bảng TRANSACTION}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+TransactionID & PK & Mã định danh duy nhất của giao dịch \\
+BookID & FK & Tham chiếu đến BOOK \\
+OwnerAccountID & FK & Người sở hữu sách, tham chiếu ACCOUNT \\
+BorrowerAccountID & FK & Người nhận/mượn sách, tham chiếu ACCOUNT \\
+TransactionType & & Loại giao dịch (\textit{exchange, borrow}) \\
+DeliveryMethod & & Hình thức giao hàng (\textit{self\_pickup, volunteer}) \\
+Status & & Trạng thái giao dịch (\textit{requested, accepted, rejected, completed, v.v.}) \\
+PickupLocation & & Vị trí lấy sách thực tế của giao dịch \\
+DropoffLocation & & Địa điểm nhận sách thực tế của giao dịch \\
+BorrowDate & & Thời điểm bắt đầu giao dịch mượn thực tế \\
+ReturnDueAt & & Hạn trả sách \\
+ActualReturnDateAt & & Ngày trả sách thực tế \\
+PointsAppliedAt & & Thời điểm thực hiện cộng/trừ điểm thành công \\
+\bottomrule
+\end{longtable}
+}
+
+\paragraph{Bảng TRANSACTION\_HISTORY}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+TransactionHistoryID & PK & Mã định danh duy nhất của bản ghi lịch sử \\
+TransactionID & FK & Tham chiếu đến TRANSACTION \\
+StatusUpdatedTo & & Trạng thái giao dịch sau khi cập nhật \\
+UpdatedByAccountID & FK & Người cập nhật, tham chiếu ACCOUNT \\
+UpdatedAt & & Thời điểm cập nhật \\
+Note & & Ghi chú/Lý do thay đổi trạng thái \\
+\bottomrule
+\end{longtable}
+}
+
 \subsubsection{Bảng giao nhận}
+
+Lưu thông tin chi tiết về các đơn vận chuyển do người giao sách tình nguyện xử lý (\textbf{DELIVERY}):
+
+\paragraph{Bảng DELIVERY}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+DeliveryID & PK & Mã định danh duy nhất của đơn giao hàng \\
+TransactionID & FK & Tham chiếu đến TRANSACTION \\
+DeliveryType & & Loại giao hàng (\textit{outbound, return}) \\
+VolunteerAccountID & FK & Người giao sách, tham chiếu ACCOUNT \\
+AcceptedAt & & Thời điểm tình nguyện viên nhận đơn \\
+DeliveredAt & & Thời điểm giao sách thành công \\
+PickupLocation & & Địa chỉ lấy sách \\
+DropoffLocation & & Địa chỉ giao sách \\
+Status & & Trạng thái vận chuyển (\textit{open, accepted, in\_transit, delivered, cancelled}) \\
+PointsAppliedAt & & Thời điểm cộng điểm thưởng cho tình nguyện viên \\
+\bottomrule
+\end{longtable}
+}
 
 \subsubsection{Bảng khiếu nại}
 
-\subsubsection{Bảng thông báo}
+Lưu trữ thông tin xử lý khiếu nại khi có tranh chấp phát sinh giữa các thành viên (\textbf{COMPLAINT}):
 
-\subsubsection{Các bảng khác nếu có}
+\paragraph{Bảng COMPLAINT}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+ComplaintID & PK & Mã định danh duy nhất của khiếu nại \\
+TransactionID & FK & Tham chiếu đến TRANSACTION \\
+ComplainantAccountID & FK & Tài khoản gửi khiếu nại, tham chiếu ACCOUNT \\
+ReportedAccountID & FK & Tài khoản bị khiếu nại, tham chiếu ACCOUNT \\
+HandledByAccountID & FK & Tài khoản xử lý khiếu nại, tham chiếu ACCOUNT \\
+ComplaintDetails & & Chi tiết nội dung khiếu nại \\
+Status & & Trạng thái xử lý (\textit{open, reviewing, resolved, rejected}) \\
+Outcome & & Kết quả và hướng giải quyết khiếu nại \\
+\bottomrule
+\end{longtable}
+}
+
+\subsubsection{Bảng biến động điểm}
+
+Hệ thống ghi nhận toàn bộ hoạt động biến động điểm thưởng để phục vụ kiểm toán và minh bạch thông tin (\textbf{POINT\_LEDGER}):
+
+\paragraph{Bảng POINT\_LEDGER}
+{\small
+\begin{longtable}{L{0.28\textwidth}L{0.12\textwidth}L{0.52\textwidth}}
+\toprule
+\textbf{Thuộc tính} & \textbf{Khóa} & \textbf{Ghi chú} \\
+\midrule
+PointLedgerID & PK & Mã định danh duy nhất của bản ghi điểm \\
+AccountID & FK & Tham chiếu đến ACCOUNT \\
+TransactionID & FK & Giao dịch phát sinh điểm, tham chiếu TRANSACTION \\
+DeliveryID & FK & Đơn vận chuyển phát sinh điểm, tham chiếu DELIVERY \\
+Delta & & Số điểm biến động \\
+BalanceAfter & & Số dư điểm của người dùng sau biến động \\
+Reason & & Lý do biến động điểm cụ thể \\
+CreatedAt & & Thời điểm ghi nhận biến động \\
+\bottomrule
+\end{longtable}
+}
 
 \subsection{Ràng buộc dữ liệu}
 
+Để đảm bảo tính nhất quán và toàn vẹn của dữ liệu trong quá trình vận hành hệ thống BookShare Hub, các ràng buộc dữ liệu chính được áp dụng bao gồm:
+\begin{itemize}
+    \item \textbf{Ràng buộc miền giá trị:}
+    \begin{itemize}
+        \item Số điểm của người dùng trong bảng \texttt{ACCOUNT} luôn phải không âm: \texttt{Points >= 0}.
+        \item Vai trò của tài khoản chỉ được phép nhận các giá trị: \texttt{'member'}, \texttt{'volunteer'}, \texttt{'admin'}.
+        \item Năm xuất bản của sách phải hợp lệ: lớn hơn \texttt{1000} và nhỏ hơn hoặc bằng năm hiện tại cộng thêm 1.
+        \item Tình trạng vật lý của sách chỉ thuộc các nhóm: \texttt{'new'}, \texttt{'good'}, \texttt{'used'}, \texttt{'worn'}.
+        \item Trạng thái sách chỉ nhận các giá trị: \texttt{'available'}, \texttt{'negotiating'}, \texttt{'exchanged'}, \texttt{'borrowed'}, \texttt{'returned'}, \texttt{'hidden'}.
+        \item Loại giao dịch chỉ nhận: \texttt{'exchange'} hoặc \texttt{'borrow'}
+        \item Hình thức vận chuyển chỉ nhận: \texttt{'self\_pickup'} hoặc \texttt{'volunteer'}.
+        \item Trạng thái giao dịch chỉ nhận các giá trị theo quy trình luồng trạng thái nghiêm ngặt.
+    \end{itemize}
+    \item \textbf{Ràng buộc nghiệp vụ liên kết:}
+    \begin{itemize}
+        \item Người sở hữu sách và người mượn/nhận sách trong cùng một giao dịch phải là hai tài khoản khác nhau: \texttt{OwnerAccountID <> BorrowerAccountID}.
+        \item Người cho mượn hoặc người nhận sách của một giao dịch cụ thể không được phép nhận làm người giao sách tình nguyện phụ trách vận chuyển cho chính giao dịch đó nhằm đảm bảo tính khách quan và chính trực.
+        \item Điểm thưởng của một giao dịch chỉ được áp dụng cộng/trừ một lần duy nhất khi giao dịch chuyển sang trạng thái hoàn tất thành công (\texttt{'completed'}).
+    \end{itemize}
+\end{itemize}
+
 \subsection{Khóa chính và khóa ngoại}
+
+\subsubsection{Phụ thuộc hàm chính}
+Các bảng trong thiết kế cơ sở dữ liệu tuân thủ các phụ thuộc hàm hàm ý trực tiếp từ khóa chính (theo chuẩn 3NF)
+\begin{itemize}
+    \item \texttt{AccountID} $\rightarrow$ \texttt{FullName, PhoneNumber, EmailAddress, Password, Points, Status, Role}.
+    \item \texttt{AddressID} $\rightarrow$ \texttt{AccountID, Label, AddressText, IsDefault}.
+    \item \texttt{BookID} $\rightarrow$ \texttt{OwnerAccountID, Title, Category, Author, PublicationYear, Condition, Status, PickupLocation, CoverImageUrl}.
+    \item \texttt{TransactionID} $\rightarrow$ \texttt{BookID, OwnerAccountID, BorrowerAccountID, TransactionType, DeliveryMethod, Status, PickupLocation, DropoffLocation, BorrowDate, ReturnDueAt, ActualReturnDateAt, PointsAppliedAt}.
+    \item \texttt{TransactionHistoryID} $\rightarrow$ \texttt{TransactionID, StatusUpdatedTo, UpdatedByAccountID, UpdatedAt, Note}.
+    \item \texttt{DeliveryID} $\rightarrow$ \texttt{TransactionID, DeliveryType, VolunteerAccountID, AcceptedAt, DeliveredAt, PickupLocation, DropoffLocation, Status, PointsAppliedAt}.
+    \item \texttt{ComplaintID} $\rightarrow$ \texttt{TransactionID, ComplainantAccountID, ReportedAccountID, HandledByAccountID, ComplaintDetails, Status, Outcome}.
+    \item \texttt{PointLedgerID} $\rightarrow$ \texttt{AccountID, TransactionID, DeliveryID, Delta, BalanceAfter, Reason, CreatedAt}.
+\end{itemize}
+
+

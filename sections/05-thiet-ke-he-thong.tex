@@ -1,40 +1,31 @@
 % !TEX root = ../main.tex
-\clearpage
 
 \section{THIẾT KẾ HỆ THỐNG}
 
-\subsection{Thiết kế kiến trúc hệ thống}
+Chương này trình bày chi tiết về thiết kế cấu trúc các phân hệ chức năng chính của hệ thống BookShare Hub dựa trên mã nguồn thực tế của dự án.
 
-\subsection{Thiết kế các module chức năng}
+\subsection{Thiết kế các phân hệ chức năng}
 
-\subsubsection{Module tài khoản}
+Hệ thống được thiết kế theo cấu trúc phân hệ hóa, phân chia rõ ràng các khối chức năng tương ứng trực tiếp với thư mục mã nguồn thực tế tại \texttt{src/features/}:
 
-\subsubsection{Module quản lý sách}
+\subsubsection{Phân hệ tài khoản}
+Phân hệ này chịu trách nhiệm quản lý đăng ký, đăng nhập và quản lý hồ sơ thông tin cá nhân. Ngay khi thành viên đăng ký tài khoản thành công thông qua chức năng xác thực của Supabase, bộ kích hoạt sẽ tự động chèn một bản ghi tài khoản mới vào bảng \texttt{accounts} đồng thời cộng khởi đầu \textbf{+20 điểm} thưởng vào bảng sổ cái lịch sử điểm (\textit{\texttt{point\_ledger}}). Phân hệ cũng quản lý thêm mới, chỉnh sửa, xóa và thiết lập địa chỉ nhận sách mặc định của thành viên.
 
-\subsubsection{Module yêu cầu nhận/mượn sách}
+\subsubsection{Phân hệ quản lý sách}
+Phân hệ này giúp thành viên đăng tải các đầu sách muốn chia sẻ lên cộng đồng. Khi đăng sách, hệ thống cho phép tải tệp tin ảnh lên bộ lưu trữ của Supabase, lưu trữ đường dẫn ảnh, quản lý các thông tin sách (\textit{tên sách, thể loại, tác giả, năm xuất bản, tình trạng sách, địa điểm lấy sách}) và trạng thái hiển thị (\textit{sẵn sàng chia sẻ, ẩn sách}). Phân hệ tích hợp chỉ mục tìm kiếm GIN (\textit{\texttt{books\_search\_idx}}) ở cơ sở dữ liệu để tối ưu hóa hiệu năng lọc và tìm kiếm sách thời gian thực theo tên sách, tác giả hoặc thể loại.
 
-\subsubsection{Module giao nhận}
+\subsubsection{Phân hệ yêu cầu nhận/mượn sách}
+Khối chức năng cốt lõi xử lý các yêu cầu giao dịch sách mượn hoặc trao đổi vĩnh viễn. Phân hệ gọi thủ tục cơ sở dữ liệu để kiểm tra các điều kiện tiên quyết: người dùng phải có đủ điểm để thực hiện giao dịch (\textit{trao đổi cần tối thiểu 10đ, mượn cần tối thiểu 5đ}), sách phải ở trạng thái khả dụng và người yêu cầu không phải là chủ sách. 
 
-\subsubsection{Module khiếu nại}
+Khi chủ sách phản hồi, nếu đồng ý, trạng thái giao dịch sẽ chuyển sang trạng thái đã chấp nhận. Khi người nhận xác nhận đã nhận được sách, giao dịch chuyển sang hoàn thành, sách đổi chủ (\textit{đối với trao đổi}) hoặc chuyển trạng thái sang đã mượn (\textit{đối với mượn}), đồng thời hệ thống tự động cộng điểm cho chủ sách (\textit{+10đ hoặc +5đ}) và trừ điểm người nhận tương ứng. Lịch sử của tất cả các thay đổi trạng thái đều được ghi nhận vào bảng \texttt{transaction\_history}.
 
-\subsubsection{Module quản trị}
+\subsubsection{Phân hệ giao nhận}
+Phân hệ hỗ trợ kết nối và vận chuyển sách do \textbf{Tình nguyện viên} của câu lạc bộ đảm nhận khi người dùng lựa chọn phương thức giao nhận qua tình nguyện viên. Khi chủ sách duyệt yêu cầu giao dịch, một đơn vận chuyển mới tự động được tạo ở trạng thái mở trong bảng \texttt{deliveries}. Tình nguyện viên có thể đăng ký nhận đơn vận chuyển nếu tài khoản của họ hợp lệ và họ không phải là người tham gia giao dịch đó. 
 
-\subsection{Thiết kế giao diện hệ thống}
+Tình nguyện viên sẽ cập nhật trạng thái đơn hàng từ trạng thái đã chấp nhận $\rightarrow$ đang vận chuyển $\rightarrow$ đã giao thành công. Khi hoàn tất đơn giao thành công, hệ thống tự động cộng \textbf{+2 điểm thưởng} vận chuyển cho tình nguyện viên.
 
-\subsubsection{Giao diện đăng nhập / đăng ký}
+\subsubsection{Phân hệ khiếu nại}
+Phân hệ hỗ trợ giải quyết tranh chấp phát sinh trong quá trình trao đổi hoặc mượn sách. Người dùng có thể tạo một phiếu khiếu nại mới liên kết trực tiếp với mã giao dịch gặp sự cố. Phiếu khiếu nại ghi nhận đầy đủ chi tiết lỗi và có trạng thái luân chuyển từ mở $\rightarrow$ đang xử lý $\rightarrow$ đã giải quyết hoặc bị từ chối dưới sự phê duyệt và đưa ra kết quả xử lý của Quản trị viên hệ thống.
 
-\subsubsection{Giao diện trang chủ / dashboard}
-
-\subsubsection{Giao diện quản lý sách}
-
-\subsubsection{Giao diện chi tiết sách}
-
-\subsubsection{Giao diện quản lý yêu cầu nhận/mượn sách}
-
-\subsubsection{Giao diện quản lý giao nhận}
-
-\subsubsection{Giao diện khiếu nại}
-
-\subsubsection{Giao diện quản trị viên}
-
-\subsubsection{Giao diện hồ sơ cá nhân}
+\subsubsection{Phân hệ quản trị}
+Phân hệ đặc biệt dành riêng cho quản trị viên (\textit{với vai trò quản trị viên}), cung cấp các công cụ quản lý toàn diện bao gồm: quản lý danh sách thành viên (\textit{chỉnh sửa họ tên, số điện thoại, vai trò, điểm số và khóa hoặc mở khóa tài khoản}), quản lý danh sách sách trong hệ thống, giám sát toàn bộ giao dịch, xử lý trực tiếp các phiếu khiếu nại đang mở và theo dõi các chỉ số thống kê vận hành hệ thống.
