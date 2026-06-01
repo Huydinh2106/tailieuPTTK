@@ -1,0 +1,154 @@
+<mxfile host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36" scale="1" border="0">
+  <diagram id="KXRJdsZBzVjNvt_nwgkt" name="process 5">
+    <mxGraphModel dx="2721" dy="1149" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tv" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontStyle=1;fontSize=13;fontFamily=Helvetica;" value="Thành viên" vertex="1">
+          <mxGeometry height="60" width="120" x="-100" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="qtv" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontStyle=1;fontSize=13;fontFamily=Helvetica;" value="Quản trị viên" vertex="1">
+          <mxGeometry height="60" width="120" x="-70" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="5.1&#xa;Tiếp nhận&#xa;khiếu nại" vertex="1">
+          <mxGeometry height="100" width="160" x="300" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_2" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="5.2&#xa;Xử lý&#xa;khiếu nại" vertex="1">
+          <mxGeometry height="100" width="160" x="300" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_3" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="5.3&#xa;Quản trị dữ liệu&#xa;hệ thống" vertex="1">
+          <mxGeometry height="100" width="170" x="295" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="d5" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.dataStoreID;align=left;spacingLeft=3;points=[[0,0],[0.5,0],[1,0],[0,0.5],[1,0.5],[0,1],[0.5,1],[1,1]];fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="D5&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp;&amp;nbsp;   Hồ sơ khiếu nại" vertex="1">
+          <mxGeometry height="40" width="200" x="1030" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.dataStoreID;align=left;spacingLeft=3;points=[[0,0],[0.5,0],[1,0],[0,0.5],[1,0.5],[0,1],[0.5,1],[1,1]];fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="D3 &lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp;&amp;nbsp;   Hồ sơ giao dịch" vertex="1">
+          <mxGeometry height="40" width="200" x="1110" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="d4_store" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.dataStoreID;align=left;spacingLeft=3;points=[[0,0],[0.5,0],[1,0],[0,0.5],[1,0.5],[0,1],[0.5,1],[1,1]];fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="D4&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp; &amp;nbsp;Hồ sơ vận chuyển" vertex="1">
+          <mxGeometry height="40" width="200" x="870" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="d7" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.dataStoreID;align=left;spacingLeft=3;points=[[0,0],[0.5,0],[1,0],[0,0.5],[1,0.5],[0,1],[0.5,1],[1,1]];fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="D7&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;Lịch sử giao dịch" vertex="1">
+          <mxGeometry height="40" width="200" x="810" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="d1" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.dataStoreID;align=left;spacingLeft=3;points=[[0,0],[0.5,0],[1,0],[0,0.5],[1,0.5],[0,1],[0.5,1],[1,1]];fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="D1 &lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Thông tin tài khoản" vertex="1">
+          <mxGeometry height="40" width="240" x="750" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.dataStoreID;align=left;spacingLeft=3;points=[[0,0],[0.5,0],[1,0],[0,0.5],[1,0.5],[0,1],[0.5,1],[1,1]];fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="D2 &lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp;&amp;nbsp;   Kho sách" vertex="1">
+          <mxGeometry height="40" width="180" x="650" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" edge="1" parent="1" source="tv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p5_1" value="Yêu cầu khiếu nại">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" edge="1" parent="1" source="p5_1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="d5" value="Bản ghi khiếu nại">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1130" y="65" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f3" edge="1" parent="1" source="d5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p5_2" value="Khiếu nại chưa được xử lý">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1130" y="150" />
+              <mxPoint x="430" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f4" edge="1" parent="1" source="p5_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" target="d5" value="Cập nhật kết quả xử lý">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="850" y="270" />
+              <mxPoint x="850" y="190" />
+              <mxPoint x="1180" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f5" edge="1" parent="1" source="d3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p5_2" value="Dữ liệu thô của giao dịch">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="300" />
+              <mxPoint x="540" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f6" edge="1" parent="1" source="d4_store" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p5_2" value="Dữ liệu thô cuộc vận chuyển">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="770" y="340" />
+              <mxPoint x="770" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f7" edge="1" parent="1" source="d7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p5_2" value="Dữ liệu lịch sử để đối soát khiếu nại">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f8" edge="1" parent="1" source="qtv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p5_2" value="Kết quả xử lý khiếu nại">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f9" edge="1" parent="1" source="p5_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="qtv" value="Danh sách khiếu nại cần xử lý">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-10" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f10" edge="1" parent="1" source="p5_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="tv" value="Thông tin khiếu nại được xử lý">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-50" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f11" edge="1" parent="1" source="qtv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p5_3" value="Yêu cầu quản trị hệ thống">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f12" edge="1" parent="1" source="p5_3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="qtv" value="Báo cáo hệ thống">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-10" y="560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f13" edge="1" parent="1" source="d1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p5_3" value="Dữ liệu thô của tài khoản">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="710" y="530" />
+              <mxPoint x="710" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f14" edge="1" parent="1" source="p5_3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="d1" value="Dữ liệu cập nhật/xóa tài khoản">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="710" y="550" />
+              <mxPoint x="710" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f15" edge="1" parent="1" source="p5_3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="d2" value="Dữ liệu cập nhật/xóa sách">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f16" edge="1" parent="1" source="p5_1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p5_2" value="Khiếu nại mới">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

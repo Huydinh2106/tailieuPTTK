@@ -1,0 +1,132 @@
+<mxfile host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36" scale="1" border="0">
+  <diagram id="wDS1CnYWVB3UqVizGKDc" name="process 4">
+    <mxGraphModel dx="2721" dy="2318" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tv" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontStyle=1;fontSize=13;fontFamily=Helvetica;" value="Thành viên" vertex="1">
+          <mxGeometry height="60" width="120" x="680" y="-70" as="geometry" />
+        </mxCell>
+        <mxCell id="ngs" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontStyle=1;fontSize=13;fontFamily=Helvetica;" value="Người giao sách" vertex="1">
+          <mxGeometry height="60" width="140" x="-40" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="3.0&#xa;Quản lý&#xa;giao dịch" vertex="1">
+          <mxGeometry height="80" width="140" x="-170" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="4.1&#xa;Tiếp nhận và khớp&#xa;đơn vận chuyển" vertex="1">
+          <mxGeometry height="100" width="170" x="310" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_2" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="4.2&#xa;Theo dõi&#xa;vận chuyển" vertex="1">
+          <mxGeometry height="100" width="160" x="320" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_3" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="4.3&#xa;Xác nhận hoàn&#xa;tất vận chuyển" vertex="1">
+          <mxGeometry height="100" width="170" x="310" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="d4" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.dataStoreID;align=left;spacingLeft=3;points=[[0,0],[0.5,0],[1,0],[0,0.5],[1,0.5],[0,1],[0.5,1],[1,1]];fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="D4&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp; &amp;nbsp;Hồ sơ vận chuyển" vertex="1">
+          <mxGeometry height="40" width="200" x="870" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="d7" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.dataStoreID;align=left;spacingLeft=3;points=[[0,0],[0.5,0],[1,0],[0,0.5],[1,0.5],[0,1],[0.5,1],[1,1]];fontSize=13;fontStyle=1;fontFamily=Helvetica;" value="D7&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;Lịch sử giao dịch" vertex="1">
+          <mxGeometry height="40" width="200" x="750" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" edge="1" parent="1" source="tv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p4_1" value="Yêu cầu tìm người giao sách miễn phí">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" edge="1" parent="1" source="p3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p4_1" value="Giao dịch cần được vận chuyển">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-100" y="210" />
+              <mxPoint x="140" y="210" />
+              <mxPoint x="140" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f3" edge="1" parent="1" source="ngs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p4_1" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-410" y="520" />
+              <mxPoint x="-410" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a6YCS3VHjvAXl1Dsn7DA-2" connectable="0" parent="f3" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Đăng ký nhận đơn" vertex="1">
+          <mxGeometry relative="1" x="-0.2242" y="3" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f4" edge="1" parent="1" source="p4_1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="ngs" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-230" y="60" />
+              <mxPoint x="-230" y="490" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a6YCS3VHjvAXl1Dsn7DA-1" connectable="0" parent="f4" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Thông tin cuộc vận chuyển" vertex="1">
+          <mxGeometry relative="1" x="-0.4437" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f5" edge="1" parent="1" source="p4_1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="d4" value="Bản ghi vận chuyển mới">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="930" y="80" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f6" edge="1" parent="1" source="d4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p4_2" value="Chi tiết ghi vận chuyển + trạng thái">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="990" y="220" />
+              <mxPoint x="460" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f7" edge="1" parent="1" source="p4_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="d4" value="Cập nhật trạng thái vận chuyển">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="310" />
+              <mxPoint x="550" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f8" edge="1" parent="1" source="p4_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p3" value="Thông tin vận chuyển">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="70" y="330" />
+              <mxPoint x="70" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f9" edge="1" parent="1" source="p4_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="d7" value="Cập nhật trạng thái vận hành vào lịch sử">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="350" />
+              <mxPoint x="590" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f10" edge="1" parent="1" source="p4_3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="ngs" value="Xác nhận giao sách thành công">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="520" />
+              <mxPoint x="170" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f11" edge="1" parent="1" source="p4_3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" target="d4" value="Cập nhật hoàn tất vận chuyển">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1020" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f12" edge="1" parent="1" source="p4_1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p4_2" value="Đơn vận chuyển đã khớp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f13" edge="1" parent="1" source="p4_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;fontFamily=Helvetica;" target="p4_3" value="Vận chuyển hoàn tất">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

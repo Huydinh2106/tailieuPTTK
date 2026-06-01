@@ -4,7 +4,7 @@
 
 Trong chương này, hệ thống BookShare Hub được phân tích dưới góc nhìn luồng dữ liệu. Nội dung tập trung xác định các tác nhân ngoài, mô tả sơ đồ ngữ cảnh, sơ đồ luồng dữ liệu mức 0, đồng thời đặc tả các luồng dữ liệu, kho dữ liệu và tiến trình xử lý chính của hệ thống.
 
-Do phạm vi hệ thống ở mức vừa phải, các chức năng nghiệp vụ chính đã được thể hiện đầy đủ trong DFD mức 0. Vì vậy, báo cáo không triển khai DFD mức 1 mà mô tả chi tiết bằng các bảng đặc tả luồng dữ liệu, kho dữ liệu và tiến trình xử lý.
+Để làm rõ cơ chế vận hành và sự trao đổi thông tin chi tiết giữa các chức năng nghiệp vụ con bên trong từng tiến trình chính, tài liệu tiến hành phân rã các sơ đồ luồng dữ liệu mức 1 (DFD mức 1) tương ứng với 5 tiến trình chính đã được xác định ở mức 0.
 
 \subsection{Xác định tác nhân ngoài của hệ thống}
 
@@ -48,51 +48,29 @@ Sơ đồ trên thể hiện hệ thống trung tâm BookShare Hub, các tác nh
 
 \subsection{Sơ đồ luồng dữ liệu - DFD mức 0}
 
-\subsubsection{Mô tả DFD mức 0}
-
-DFD mức 0 phân rã hệ thống BookShare Hub thành các tiến trình xử lý chính. Các tiến trình này đại diện cho những nhóm chức năng nghiệp vụ quan trọng của hệ thống.
-
-Các tiến trình chính gồm:
-
-{\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabularx}{\textwidth}{L{0.18\textwidth}L{0.25\textwidth}Y}
-\toprule
-\textbf{Mã tiến trình} & \textbf{Tên tiến trình} & \textbf{Mô tả} \\
-\midrule
-P1 & Quản lý tài khoản & Xử lý đăng ký, đăng nhập, cập nhật hồ sơ, quản lý địa chỉ, vai trò và trạng thái tài khoản. \\
-P2 & Quản lý sách & Xử lý thêm, sửa, xóa, ẩn/hiện, tìm kiếm, lọc và hiển thị thông tin sách. \\
-P3 & Quản lý giao dịch sách & Xử lý yêu cầu mượn/trao đổi, duyệt yêu cầu, xác nhận nhận sách, hoàn trả sách và cập nhật điểm. \\
-P4 & Quản lý giao nhận & Xử lý đăng ký người giao sách, tạo đơn giao, nhận đơn và cập nhật trạng thái giao sách. \\
-P5 & Quản lý khiếu nại & Xử lý tạo khiếu nại, xem khiếu nại và cập nhật kết quả xử lý. \\
-P6 & Quản trị hệ thống & Xử lý thống kê tổng quan, quản lý thành viên, sách, giao dịch và khiếu nại. \\
-\bottomrule
-\end{tabularx}
-}
-
-Các kho dữ liệu chính gồm:
-
-{\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabularx}{\textwidth}{L{0.14\textwidth}L{0.25\textwidth}Y}
-\toprule
-\textbf{Mã kho} & \textbf{Kho dữ liệu} & \textbf{Mô tả} \\
-\midrule
-D1 & Tài khoản & Lưu thông tin người dùng, vai trò, trạng thái và điểm. \\
-D2 & Địa chỉ & Lưu địa chỉ nhận sách của từng tài khoản. \\
-D3 & Sách & Lưu thông tin sách, chủ sở hữu, tình trạng và trạng thái sách. \\
-D4 & Giao dịch sách & Lưu thông tin yêu cầu mượn/trao đổi và trạng thái giao dịch. \\
-D5 & Lịch sử giao dịch & Lưu lịch sử thay đổi trạng thái giao dịch. \\
-D6 & Đơn giao sách & Lưu thông tin vận chuyển sách. \\
-D7 & Khiếu nại & Lưu thông tin khiếu nại và kết quả xử lý. \\
-D8 & Lịch sử điểm & Lưu biến động cộng/trừ điểm của người dùng. \\
-\bottomrule
-\end{tabularx}
-}
-
-\subsubsection{DFD mức 0}
-
 \insertdiagram{assets/dfd_0.png}{1.05}{Biểu đồ luồng dữ liệu mức 0 của hệ thống BookShare Hub}
 
-DFD mức 0 thể hiện các tác nhân ngoài, sáu tiến trình xử lý P1 đến P6, tám kho dữ liệu D1 đến D8 và những luồng dữ liệu chính giữa tác nhân, tiến trình và kho dữ liệu.
+\subsection{Sơ đồ luồng dữ liệu - DFD mức 1}
+
+Sơ đồ DFD mức 1 phân rã chi tiết các hoạt động bên trong 5 tiến trình cốt lõi của hệ thống BookShare Hub.
+
+\subsubsection{Tiến trình 1.0: Quản lý người dùng và điểm}
+
+\insertdiagram{dfd-process 1.drawio.png}{1.05}{Biểu đồ luồng dữ liệu mức 1 - Tiến trình 1.0 Quản lý người dùng và điểm}
+
+\subsubsection{Tiến trình 2.0: Quản lý thông tin sách}
+
+\insertdiagram{dfd-process 2.drawio.png}{1.05}{Biểu đồ luồng dữ liệu mức 1 - Tiến trình 2.0 Quản lý thông tin sách}
+
+\subsubsection{Tiến trình 3.0: Quản lý giao dịch}
+
+\insertdiagram{dfd-process 3.drawio.png}{1.05}{Biểu đồ luồng dữ liệu mức 1 - Tiến trình 3.0 Quản lý giao dịch}
+
+\subsubsection{Tiến trình 4.0: Quản lý vận chuyển}
+
+\insertdiagram{dfd-process 4.drawio.png}{1.05}{Biểu đồ luồng dữ liệu mức 1 - Tiến trình 4.0 Quản lý vận chuyển}
+
+\subsubsection{Tiến trình 5.0: Quản trị Hệ thống / Xử lý khiếu nại}
+
+\insertdiagram{dfd-process 5.drawio.png}{1.05}{Biểu đồ luồng dữ liệu mức 1 - Tiến trình 5.0 Quản trị Hệ thống / Xử lý khiếu nại}
 
